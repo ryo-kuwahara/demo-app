@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>従業員新規登録</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark mt-3 mb-3">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Work</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a role="button" class="nav-link btn btn-outline-primary btn-sm ml-2" th:href="@{/member}">従業員一覧画面</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<h1 class="my-3">従業員新規登録</h1>
+<hr class="mb-5">
+<div class="col-md-6">
+<form th:action="@{/member/save}" th:object="${member}" th:method="post">
+
+    <table class="table table-bordered table-striped table-hover table-dark">
+        <tr>
+            <th>※名前</th>
+            <td >
+                <input class="form-control" type="text" th:field="*{name}" />
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>※パスワード</th>
+            <td>
+                <input class="form-control" type="password" th:field="*{password}" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>※権限</th>
+            <td>
+                <select th:field="*{roleId}">
+                    <option th:each="role: ${roleList}" th:value="${role.key}" th:inlne="text">[[${role.value}]]</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>※所属部署</th>
+            <td>
+                <select th:field="*{team.id}">
+                    <option th:each="team: ${teamList}" th:value="${team.key}" th:inlne="text">[[${team.value}]]</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>※入社日</th>
+            <td>
+                <input type="text" id="datepicker" th:field="*{joinDate}" placeholder="日付を入力してください。"/>
+                <p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}" class="text-danger"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>※拠点名</th>
+            <td>
+                <select th:field="*{office.id}">
+                    <option th:each="office: ${officeList}" th:value="${office.key}" th:inlne="text">[[${office.value}]]</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>※役職</th>
+            <td>
+                <select th:field="*{position.id}">
+                    <option th:each="position: ${positionList}" th:value="${position.key}" th:inlne="text">[[${position.value}]]</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>※性別</th>
+            <td>
+                <div class="form-check-inline" th:each="sexType : ${sexTypeList}">
+                    <input type="radio" th:value="${sexType.key}" th:text="${sexType.value}" th:field="*{sex}" />
+                </div>
+                <p th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="text-danger"></p>
+            </td>
+        </tr>
+    </table>
+    <button type="submit" name="save" class="btn btn-outline-primary btn-sm">登録</button>
+    <button type="submit" name="cancel" class="btn btn-outline-primary btn-sm ml-2">戻る</button>
+</form>
+</div>
+<script src="/js/datepicker.js"></script>
+</body>
+</html>

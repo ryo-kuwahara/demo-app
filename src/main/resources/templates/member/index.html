@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Springboot</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+        <nav class="navbar navbar-expand-md  navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Work</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"> <a role="button" class="nav-link btn btn-outline-primary btn-sm ml-2 mb-2" th:href="@{/member/add}">新規登録はこちら</a></li>
+                </ul>
+            </div>
+            <form class="pull-right" th:action="@{/logout}" method="post">
+                <button class="nav-link btn btn-outline-primary btn-sm ml-2">ログアウト</button>
+            </form>
+        </nav>
+
+        <h1>従業員情報一覧</h1>
+        <table class="table table-bordered table-striped table-hover table-dark">
+            <thead>
+            <tr>
+                <th>社員ID</th>
+                <th>名前</th>
+                <th>部署</th>
+                <th>入社日</th>
+                <th>勤務地</th>
+                <th>役職</th>
+                <th>性別</th>
+                <th>登録日</th>
+                <th>更新日</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}" th:object="${member}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{team.name}"></td>
+                <td th:text="*{joinDate}"></td>
+                <td th:text="*{office.name}"></td>
+                <td th:text="*{position.name}"></td>
+                <td th:text="*{sexName}"></td>
+                <td th:text="*{registerDate}"></td>
+                <td th:text="*{modifiedDate}"></td>
+                <td><a class="btn btn-outline-primary btn-sm" th:href="@{/member/{id}(id=*{id})}">参照/編集</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</body>
+</html>

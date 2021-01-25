@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ログインフォーム</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="login">
+    <h1>Login</h1>
+    <div th:if="${param.error}" style="color:red;">
+        <p>ログインできませんでした。やりなおしてください。</p>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <input class="mb-2" type="text" id="name" name="name" value="" placeholder="Username"/>
+        <input class="mb-2" type="password" id="password" name="password" value="" placeholder="Password"/>
+        <button type="submit" class="btn btn-primary btn-block btn-large mb-1">Let me in.</button>
+    </form>
+</div>
+</body>
+</html>
